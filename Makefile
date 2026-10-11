@@ -11,7 +11,7 @@ install:
 
 # Start backend FastAPI server
 backend:
-	python3 -m uvicorn backend.app.main:app --reload --port 8000
+	python3 -m uvicorn app.main:app --app-dir backend --reload --port 8000
 
 # Start frontend Next.js server
 frontend:

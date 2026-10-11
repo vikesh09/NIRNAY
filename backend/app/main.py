@@ -127,10 +127,15 @@ def chat_with_agent(req: AgentChatRequest):
 @app.get("/api/v1/replays")
 def get_replays():
     """Returns list of historical Delhi monsoon rain event replays (July 2026 & May 2025)."""
-    replay_file = os.path.join(os.path.dirname(__file__), "../../data/rainfall/replays.json")
-    if os.path.exists(replay_file):
-        with open(replay_file, "r") as f:
-            return json.load(f)
+    candidates = [
+        os.path.join(os.path.dirname(__file__), "../../data/rainfall/replays.json"),
+        os.path.join(os.getcwd(), "data/rainfall/replays.json"),
+        os.path.join(os.getcwd(), "backend/data/rainfall/replays.json")
+    ]
+    for replay_file in candidates:
+        if os.path.exists(replay_file):
+            with open(replay_file, "r") as f:
+                return json.load(f)
     raise HTTPException(status_code=404, detail="Replay dataset not found")
 
 

@@ -8,13 +8,26 @@ import os
 import requests
 from typing import Dict, Any, List
 
-HOTSPOTS_FILE = os.path.join(os.path.dirname(__file__), "../../../data/hotspots/hotspots.json")
+def _find_hotspots_file() -> str:
+    candidates = [
+        os.path.join(os.path.dirname(__file__), "../../../data/hotspots/hotspots.json"),
+        os.path.join(os.path.dirname(__file__), "../../data/hotspots/hotspots.json"),
+        os.path.join(os.getcwd(), "data/hotspots/hotspots.json"),
+        os.path.join(os.getcwd(), "backend/data/hotspots/hotspots.json")
+    ]
+    for p in candidates:
+        if os.path.exists(p):
+            return p
+    return candidates[0]
+
+HOTSPOTS_FILE = _find_hotspots_file()
 
 
 def load_hotspots_data() -> List[Dict[str, Any]]:
     """Load hotspot coordinates from JSON."""
-    if os.path.exists(HOTSPOTS_FILE):
-        with open(HOTSPOTS_FILE, "r") as f:
+    filepath = _find_hotspots_file()
+    if os.path.exists(filepath):
+        with open(filepath, "r") as f:
             return json.load(f)
     return []
 
