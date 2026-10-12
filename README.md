@@ -65,7 +65,7 @@ cd frontend
 npm install
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [https://main.d3un4y2l8qnh6j.amplifyapp.com/app) in your browser.
 
 ---
 
